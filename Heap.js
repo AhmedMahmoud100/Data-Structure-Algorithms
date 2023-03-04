@@ -1,8 +1,10 @@
 class MinHeap {
     constructor(values) {
-        this.list = [-1];
+        // this.list = [-1];
         if (typeof values == "number") values = [values];
-        values.forEach((value) => this.add(value));
+        this.list = [-1, ...values];
+        this.heapify();
+        // values.forEach((value) => this.add(value));
     }
     add(value) {
         const len = this.list.length;
@@ -14,6 +16,44 @@ class MinHeap {
         // reorder from bottom to top
         this.heapifyUp();
         return this.list[1];
+    }
+    print() {
+        return (this.list)
+    }
+    heapify() {
+        const length = this.list.length - 1
+        for (let j = length; j > 0; j--) {
+
+            let currentVal = this.list[j];
+            let leftVal = this.getLeftNode(j);
+            let rightVal = this.getRightNode(j);
+
+            let i = j
+            while (
+                leftVal !== undefined &&
+                (currentVal > leftVal || currentVal > rightVal)
+            ) {
+                currentVal = this.list[i]
+
+                if (
+                    currentVal > leftVal &&
+                    (rightVal === undefined || leftVal < rightVal)
+                ) {
+                    [this.list[this.getLeftIndex(i)], this.list[i]] = [currentVal, leftVal];
+                    i = this.getLeftIndex(i);
+                } else {
+                    [this.list[this.getRightIndex(i)], this.list[i]] = [
+                        currentVal,
+                        rightVal,
+                    ];
+                    i = this.getRightIndex(i);
+                }
+                leftVal = this.getLeftNode(i);
+                rightVal = this.getRightNode(i);
+            }
+        }
+
+        return this.list
     }
     remove() {
         if (this.list.length == 1) return null;
@@ -97,13 +137,13 @@ class MinHeap {
 }
 
 const heap = new MinHeap([1, 2, 3, -10, -100, 99, 0])
+console.log(heap.print())
+// console.log(heap.remove())
+// // -100
+// console.log(heap.remove())
+// // -10
+// console.log(heap.add(-3))
+// // -3
+// console.log(heap.add(5))
 
-console.log(heap.remove())
-// -100
-console.log(heap.remove())
-// -10
-console.log(heap.add(-3))
-// -3
-console.log(heap.add(5))
-
-console.log(heap.sort())
+// console.log(heap.sort())
