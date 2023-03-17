@@ -7,6 +7,8 @@ const edges = [
 const source = 0;
 const destination = 2;
 
+//method 1 : using map and set 
+
 var validPath = function (n, edges, source, destination) {
   // adjMatrix: hashMap of adjacency matrix
   const adjMatrix = createAdjMatrix(edges);
@@ -49,6 +51,8 @@ function dfs(source, destination, adjList) {
 }
 
 console.log(validPath(n, edges, source, destination));
+
+// method 2 : using array and object
 
 // var validPath = function (n, edges, source, destination) {
 //   let adjList = {},
